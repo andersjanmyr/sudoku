@@ -1,15 +1,20 @@
 {
   "name": "sudoku",
   "version": "0.0.0",
-  "description": "A Javascript Sukoku program",
+  "description": "A Coffeescript Sukoku program",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha --require coffee-script --compilers coffee:coffee-script test"
   },
   "author": "Anders Janmyr <anders@janmyr.com> (http://anders.janmyr.com/)",
   "license": "MIT",
   "devDependencies": {
+    "coffee-script": "~1.7.0",
     "chai": "~1.8.1",
-    "mocha": "~1.17.1"
+    "mocha": "~1.17.1",
+    "growl": "~1.7.0"
+  },
+  "dependencies": {
+    "coffee-script": "~1.7.0"
   }
 }
