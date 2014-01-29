@@ -14,8 +14,17 @@ class Board
   @colCoords: (col) ->
     [row, col] for row in [1..9]
 
+  @base: (val) ->
+    return 0 if val <=3
+    return 3 if val <=6
+    return 6
+
   @boxCoords: (row, col) ->
-    [row, col] for row in [1..9]
+    rowBase = @base row
+    colBase = @base col
+
+    [rowBase+r, colBase+c] for [r, c] in [[1, 1], [2, 1], [3, 1], [1, 2],
+          [2, 2], [3, 2], [1, 3], [2, 3], [3, 3]]
 
 
 Sudoku = {

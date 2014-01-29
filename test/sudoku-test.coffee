@@ -31,4 +31,10 @@ describe 'Sudoku', ->
         expect(coords).to.deep.equal([[1, 1], [2, 1], [3, 1], [4, 1],
           [5, 1], [6, 1], [7, 1], [8, 1], [9, 1]])
 
+    describe 'boxCoords', ->
+      it 'returns proper coords for row 1, col 1', ->
+        coords = Sudoku.Board.boxCoords 1, 1
+        expect(coords).to.deep.equal([[1, 1], [2, 1], [3, 1], [1, 2],
+          [2, 2], [3, 2], [1, 3], [2, 3], [3, 3]])
+
 
