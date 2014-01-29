@@ -1,0 +1,15 @@
+{
+  "name": "sudoku",
+  "version": "0.0.0",
+  "description": "A Javascript Sukoku program",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "author": "Anders Janmyr <anders@janmyr.com> (http://anders.janmyr.com/)",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "~1.8.1",
+    "mocha": "~1.17.1"
+  }
+}
