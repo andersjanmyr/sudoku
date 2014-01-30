@@ -3,8 +3,8 @@
 fs = require 'fs'
 
 class Board
-  constructor: (@data) ->
-    @coords = @data.split('\n').map (line) ->
+  constructor: (data) ->
+    @coords = data.split('\n').map (line) ->
       line.split('')
 
   value: (row, col) ->
@@ -29,7 +29,6 @@ class Board
     cs = @values Board.colCoords(col)
     bs = @values Board.boxCoords(row, col)
     takenValues = @unique(rs.concat(cs, bs))
-    console.log takenValues
     @availableValues(takenValues)
 
 
@@ -53,7 +52,9 @@ class Board
           [2, 2], [3, 2], [1, 3], [2, 3], [3, 3]]
 
   toString: ->
-    @data
+    lines = @coords.map (row) ->
+      row.join ''
+    lines.join '\n'
 
 
 
