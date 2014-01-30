@@ -24,7 +24,7 @@ class Board
 
   possibleValues: (row, col) ->
     val = @value row, col
-    return [val] unless val is '.'
+    return val unless val is '.'
     rs = @values Board.rowCoords(row)
     cs = @values Board.colCoords(col)
     bs = @values Board.boxCoords(row, col)

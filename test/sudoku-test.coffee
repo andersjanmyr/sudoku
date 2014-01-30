@@ -58,7 +58,7 @@ describe 'Sudoku', ->
 
     describe 'possibleValues', ->
       it 'returns the value for value', ->
-        expect(board.possibleValues(1, 1)).to.deep.equal ['5']
+        expect(board.possibleValues(1, 1)).to.deep.equal '5'
 
       it 'returns free values for dot', ->
         vals = board.possibleValues(3, 1)
