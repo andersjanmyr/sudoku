@@ -1,16 +1,19 @@
-#!/usr/bin/env node_modules/.bin/coffee
+#!/usr/bin/env node
 
-Sudoku = require '../lib/sudoku'
+require('coffee-script/register');
+var Sudoku = require('../lib/sudoku');
 
-args = process.argv.slice(2)
-return console.error('Usage: sudoku name') unless args.length is 1
+var args = process.argv.slice(2);
+if (args.length !== 1)
+    return console.error('Usage: sudoku name');
 
-Sudoku.load args[0], (err, board) ->
-  return console.log(err) if err
-  console.log 'Solving board'
-  console.log board.toString()
-  console.log ''
-  solution = Sudoku.solve(board)
-  console.log 'Solution'
-  console.log solution.toString()
+Sudoku.load(args[0], function(err, board) {
+  if (err) return console.log(err);
+  console.log('Solving board');
+  console.log(board.toString());
+  console.log('');
+  solution = Sudoku.solve(board);
+  console.log('Solution');
+  console.log(solution.toString());
+});
 

@@ -1,6 +1,6 @@
 {
   "name": "sudoku-coffee",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Coffeescript Sukoku program",
   "main": "lib/sudoku.js",
   "bin": { "sudoku": "./bin/sudoku" },
