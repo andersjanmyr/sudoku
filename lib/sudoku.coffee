@@ -104,14 +104,11 @@ Sudoku = {
     !!matrix[1]
 
   solve: (board) ->
-    @count = 0
     @solve2 board, Sudoku.Board.allCoords()
 
   solve2: (board, coords) ->
-    @count++
     return board if coords.length is 0
     matrix = Sudoku.calcPossibilites board, coords
-    console.log 'solve2', @count
     return null if matrix[0]
     if @hasSingles(matrix)
       @placeSingles board, matrix[1]

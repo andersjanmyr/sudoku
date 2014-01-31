@@ -71,7 +71,7 @@ describe 'Sudoku', ->
         expect(solution).to.not.be.null
 
 
-  describe.skip 'solve hard', ->
+  describe 'solve hard', ->
     board = null
     before (done) ->
       Sudoku.load "#{__dirname}/fixtures/hard.sudoku", (err, b) ->
@@ -83,7 +83,7 @@ describe 'Sudoku', ->
         expect(solution).to.not.be.null
 
 
-  describe.skip 'solve samurai', ->
+  describe 'solve samurai', ->
     board = null
     before (done) ->
       Sudoku.load "#{__dirname}/fixtures/samurai.sudoku", (err, b) ->
