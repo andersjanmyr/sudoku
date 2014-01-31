@@ -49,7 +49,7 @@ describe 'Sudoku', ->
   describe 'Board instance', ->
     board = null
     before ->
-      board = new Sudoku.Board(easy)
+      board = Sudoku.Board.fromString(easy)
 
     describe 'coords', ->
       it 'returns an array with arrays', ->
@@ -57,8 +57,8 @@ describe 'Sudoku', ->
         expect(board.coords[8]).to.have.length 9
 
     describe 'possibleValues', ->
-      it 'returns the value for value', ->
-        expect(board.possibleValues(1, 1)).to.deep.equal '5'
+      it 'returns null for value', ->
+        expect(board.possibleValues(1, 1)).to.be.null
 
       it 'returns free values for dot', ->
         vals = board.possibleValues(3, 1)
