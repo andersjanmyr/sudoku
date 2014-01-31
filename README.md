@@ -7,24 +7,8 @@ Sudoku is a programming for solving sudoku, written in Coffeescript.
 ## Installation
 
 ```
-$ npm install sudoku
+$ npm install sudoku-coffee
 ```
-
-```
-$ git clone https://github.com/andersjanmyr/sudoku.git
-$ npm install
-```
-
-## Test
-
-```
-# Run all tests
-$ npm test
-
-# Watch files and run tests when files change
-$ npm run watch
-```
-
 ## Running
 
 To run the file use the binary `bin/sudoku filename`
@@ -98,3 +82,22 @@ Solution
 781654923
 359828641
 ```
+
+## Development
+
+```
+$ git clone https://github.com/andersjanmyr/sudoku.git
+$ npm install
+```
+
+## Test
+
+```
+# Run all tests
+$ npm test
+
+# Watch files and run tests when files change
+$ npm run watch
+```
+
+
