@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script/register --reporter spec test",
-    "watch": "mocha --compilers coffee:coffee-script/register --watch --growl test"
+    "watch": "mocha --compilers coffee:coffee-script/register --watch --growl test",
+    "easy": "bin/sudoku test/fixtures/easy.sudoku",
+    "medium": "bin/sudoku test/fixtures/medium.sudoku",
+    "hard": "bin/sudoku test/fixtures/hard.sudoku",
+    "samurai": "bin/sudoku test/fixtures/samurai.sudoku"
   },
   "author": "Anders Janmyr <anders@janmyr.com> (http://anders.janmyr.com/)",
   "license": "MIT",

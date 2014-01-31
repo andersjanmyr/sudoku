@@ -92,7 +92,7 @@ Sudoku = {
   placeSingles: (board, singles) ->
     singles.forEach (coord) ->
       [r, c, values] = coord
-      board.value r, c, values[0]
+      board.value(r, c, values[0])
 
   nonSingles: (matrix) ->
     delete matrix[1]
@@ -112,7 +112,7 @@ Sudoku = {
     return null if matrix[0]
     if @hasSingles(matrix)
       @placeSingles board, matrix[1]
-      @solve2 board, @nonSingles(matrix)
+      return @solve2 board, @nonSingles(matrix)
     else
       nonSingles = @nonSingles(matrix)
       first = nonSingles.shift()
@@ -120,13 +120,8 @@ Sudoku = {
       for v in values
         boardCopy = board.copy()
         boardCopy.value(r, c, v)
-        solution = @solve2 board.copy(), nonSingles
+        solution = @solve2 boardCopy, nonSingles
         return solution if solution
-
-
-
-
-
 }
 
 module.exports = Sudoku

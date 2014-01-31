@@ -46,7 +46,6 @@ describe 'Sudoku', ->
     it 'solve solves the sudoku or fails', ->
       solution = Sudoku.solve(board)
       expect(solution).to.not.be.null
-      console.log solution.toString()
 
   describe 'solve easy', ->
     board = null
