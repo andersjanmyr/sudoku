@@ -1,8 +1,9 @@
 {
   "name": "sudoku-coffee",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Coffeescript Sukoku program",
   "main": "lib/sudoku.js",
+  "bin": { "sudoku": "./bin/sudoku" },
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script/register --reporter spec test",
     "watch": "mocha --compilers coffee:coffee-script/register --watch --growl test",
