@@ -5,6 +5,10 @@ Sudoku is a programming for solving sudoku, written in Coffeescript.
 ## Installation
 
 ```
+$ npm install sudoku
+```
+
+```
 $ git clone https://github.com/andersjanmyr/sudoku.git
 $ npm install
 ```
@@ -60,8 +64,9 @@ Solution
 785342196
 ```
 
-Four different files are preconfigured to be run with `npm run`, easy, medium,
-hard and samurai. The files can be found in `test/fixtures`.
+Five different files are preconfigured to be run with `npm run`, *easy*,
+*medium*, *hard*, *samurai*, and *impossible*. The files can be found in
+`test/fixtures`.
 
 ```
 $ npm run samurai
