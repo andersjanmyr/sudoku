@@ -23,6 +23,80 @@ describe 'Sudoku', ->
         expect(board.toString()).to.equal easy
         done()
 
+  describe 'Sudoku methods', ->
+    board = null
+    before ->
+      board = Sudoku.Board.fromString(easy)
+
+    it 'calcPossibilites creates a possibilities matrix', ->
+      matrix = Sudoku.calcPossibilites(board, Sudoku.Board.allCoords())
+      expect(matrix[1]).to.have.length 8
+
+    it 'placeSingles places single values on the board', ->
+      matrix = Sudoku.calcPossibilites(board, Sudoku.Board.allCoords())
+      before = board.toString()
+      Sudoku.placeSingles(board, matrix[1])
+      expect(board.toString()).to.not.equal(before)
+
+    it 'nonSingles returns an array of coordinates', ->
+      matrix = Sudoku.calcPossibilites(board, Sudoku.Board.allCoords())
+      nonSingles = Sudoku.nonSingles(matrix)
+      expect(nonSingles).to.have.length 32
+
+    it 'solve solves the sudoku or fails', ->
+      solution = Sudoku.solve(board)
+      expect(solution).to.not.be.null
+      console.log solution.toString()
+
+  describe 'solve easy', ->
+    board = null
+    before (done) ->
+      Sudoku.load "#{__dirname}/fixtures/easy.sudoku", (err, b) ->
+        board = b
+        done()
+
+    it 'works', () ->
+        solution = Sudoku.solve(board)
+        expect(solution).to.not.be.null
+
+  describe 'solve medium', ->
+    board = null
+    before (done) ->
+      Sudoku.load "#{__dirname}/fixtures/medium.sudoku", (err, b) ->
+        board = b
+        done()
+
+    it 'works', () ->
+        solution = Sudoku.solve(board)
+        expect(solution).to.not.be.null
+
+
+  describe.skip 'solve hard', ->
+    board = null
+    before (done) ->
+      Sudoku.load "#{__dirname}/fixtures/hard.sudoku", (err, b) ->
+        board = b
+        done()
+
+    it 'works', () ->
+        solution = Sudoku.solve(board)
+        expect(solution).to.not.be.null
+
+
+  describe.skip 'solve samurai', ->
+    board = null
+    before (done) ->
+      Sudoku.load "#{__dirname}/fixtures/samurai.sudoku", (err, b) ->
+        board = b
+        done()
+
+    it 'works', () ->
+        solution = Sudoku.solve(board)
+        expect(solution).to.not.be.null
+
+
+
+
   describe 'Board', ->
     describe 'rowCoords', ->
       it 'returns proper coords for row 1', ->

@@ -29,12 +29,15 @@ class Board
           [2, 2], [3, 2], [1, 3], [2, 3], [3, 3]]
 
   @allCoords: ->
-    for r in [1..9]
+    nested = for r in [1..9]
       for c in [1..9]
         [r, c]
+    [].concat nested...
 
-  value: (row, col) ->
-    @coords[row-1][col-1]
+
+  value: (row, col, v) ->
+    return @coords[row-1][col-1] unless v
+    @coords[row-1][col-1] = v
 
   values: (coords) ->
     @value(r, c) for [r, c] in coords
@@ -69,6 +72,48 @@ Sudoku = {
     fs.readFile filename, (err, data) ->
       return callback err if err
       callback null, Board.fromString(data.toString().trim())
+
+  calcPossibilites: (board, coords) ->
+    matrix = {}
+    coords.forEach (coord) ->
+      [r, c] = coord
+      v = board.possibleValues(r, c)
+      if v
+        arr = matrix[v.length] || []
+        arr.push([r, c, v])
+        matrix[v.length] = arr
+    matrix
+
+  placeSingles: (board, singles) ->
+    singles.forEach (coord) ->
+      [r, c, values] = coord
+      board.value r, c, values[0]
+
+  nonSingles: (matrix) ->
+    delete matrix[1]
+    values = for _, value of matrix
+      value
+    [].concat values...
+
+  solve: (board) ->
+    @count = 0
+    @solve2 board, Sudoku.Board.allCoords()
+
+  solve2: (board, coords) ->
+    @count++
+    return board if coords.length is 0
+    matrix = Sudoku.calcPossibilites board, coords
+    console.log 'solve2', @count
+    return null if matrix[0]
+    if matrix[1].length
+      @placeSingles board, matrix[1]
+    else
+      @placeSingles board, matrix[1]
+      @solve2 board, @nonSingles(matrix)
+
+
+
+
 
 }
 
