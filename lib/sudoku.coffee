@@ -65,6 +65,11 @@ class Board
       row.join ''
     lines.join '\n'
 
+  copy: ->
+    coords = @coords.map (row) ->
+      row.slice()
+    new Board(coords)
+
 
 
 Sudoku = {
@@ -95,6 +100,9 @@ Sudoku = {
       value
     [].concat values...
 
+  hasSingles: (matrix) ->
+    !!matrix[1]
+
   solve: (board) ->
     @count = 0
     @solve2 board, Sudoku.Board.allCoords()
@@ -105,11 +113,18 @@ Sudoku = {
     matrix = Sudoku.calcPossibilites board, coords
     console.log 'solve2', @count
     return null if matrix[0]
-    if matrix[1].length
-      @placeSingles board, matrix[1]
-    else
+    if @hasSingles(matrix)
       @placeSingles board, matrix[1]
       @solve2 board, @nonSingles(matrix)
+    else
+      nonSingles = @nonSingles(matrix)
+      first = nonSingles.shift()
+      [r, c, values] = first
+      for v in values
+        boardCopy = board.copy()
+        boardCopy.value(r, c, v)
+        solution = @solve2 board.copy(), nonSingles
+        return solution if solution
 
 
 

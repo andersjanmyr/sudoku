@@ -138,5 +138,10 @@ describe 'Sudoku', ->
         vals = board.possibleValues(3, 1)
         expect(vals).to.deep.equal ['2', '3', '4', '9']
 
+    describe 'copy', ->
+      it 'returns a copy', ->
+        copy = board.copy()
+        expect(copy.coords).to.have.length 9
+        expect(copy.coords[8]).to.have.length 9
 
 
