@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/andersjanmyr/sudoku.png?branch=master)](https://travis-ci.org/andersjanmyr/sudoku)
 
-Sudoku is a programming for solving sudoku, written in Coffeescript.
+Sudoku is a program for solving sudoku, written in Coffeescript.
 
 ## Installation
 
