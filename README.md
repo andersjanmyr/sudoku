@@ -48,6 +48,7 @@ Solution
 431698257
 629157834
 785342196
+Difficulty: 0
 ```
 
 ## Development
@@ -101,5 +102,6 @@ Solution
 246173958
 781654923
 359828641
+Difficulty: 13
 ```
 
