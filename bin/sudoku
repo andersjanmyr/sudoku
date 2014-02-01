@@ -14,6 +14,7 @@ Sudoku.load(args[0], function(err, board) {
   console.log('');
   solution = Sudoku.solve(board);
   console.log('Solution');
-  console.log(solution.toString());
+  console.log(solution.board.toString());
+  console.log('Difficulty', solution.difficulty);
 });
 

@@ -104,16 +104,19 @@ Sudoku = {
     !!matrix[1]
 
   solve: (board) ->
+    @difficulty = 0
     @solve2 board, Sudoku.Board.allCoords()
 
+
   solve2: (board, coords) ->
-    return board if coords.length is 0
+    return { board: board, difficulty: @difficulty } if coords.length is 0
     matrix = Sudoku.calcPossibilites board, coords
     return null if matrix[0]
     if @hasSingles(matrix)
       @placeSingles board, matrix[1]
       return @solve2 board, @nonSingles(matrix)
     else
+      @difficulty++
       nonSingles = @nonSingles(matrix)
       first = nonSingles.shift()
       [r, c, values] = first
