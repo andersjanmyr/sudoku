@@ -7,12 +7,12 @@ Sudoku is a program for solving sudoku, written in Coffeescript.
 ## Installation
 
 ```
-$ npm install sudoku-coffee
+$ npm install -g sudoku-coffee
 ```
 ## Running
 
-To run the file use the binary `bin/sudoku filename`
-The filename should have a row with 9 chars per file and 9 rows
+To run the file use the binary `sudoku filename`.
+The file should have a row with 9 chars per file and 9 rows.
 
 ```
 $ cat test/fixtrues/easy.sudoku
@@ -26,7 +26,7 @@ $ cat test/fixtrues/easy.sudoku
 6..157..4
 78.....96
 
-$ bin/sudoku test/fixtures/easy.sudoku
+$ sudoku test/fixtures/easy.sudoku
 Solving board
 51.....83
 8..416..5
@@ -49,6 +49,26 @@ Solution
 629157834
 785342196
 ```
+
+## Development
+
+```
+$ git clone https://github.com/andersjanmyr/sudoku.git
+$ cd sudoku
+$ npm install
+```
+
+### Test
+
+```
+# Run all tests
+$ npm test
+
+# Watch files and run tests when files change
+$ npm run watch
+```
+
+### Running
 
 Five different files are preconfigured to be run with `npm run`, *easy*,
 *medium*, *hard*, *samurai*, and *impossible*. The files can be found in
@@ -82,22 +102,4 @@ Solution
 781654923
 359828641
 ```
-
-## Development
-
-```
-$ git clone https://github.com/andersjanmyr/sudoku.git
-$ npm install
-```
-
-## Test
-
-```
-# Run all tests
-$ npm test
-
-# Watch files and run tests when files change
-$ npm run watch
-```
-
 
