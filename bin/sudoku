@@ -5,9 +5,14 @@ var Sudoku = require('../lib/sudoku');
 
 var args = process.argv.slice(2);
 if (args.length !== 1)
-    return console.error('Usage: sudoku name');
+  return console.error('Usage: sudoku name');
 
-Sudoku.load(args[0], function(err, board) {
+var name = args[0];
+
+if (/^gen/.test(name))
+  return console.log(Sudoku.generate().toString());
+
+Sudoku.load(name, function(err, board) {
   if (err) return console.log(err);
   console.log('Solving board');
   console.log(board.toString());

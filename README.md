@@ -11,11 +11,14 @@ $ npm install -g sudoku-coffee
 ```
 ## Running
 
+
+### Solving
+
 To run the file use the binary `sudoku filename`.
 The file should have a row with 9 chars per file and 9 rows.
 
 ```
-$ cat test/fixtrues/easy.sudoku
+$ cat test/fixtures/easy.sudoku
 51.....83
 8..416..5
 .........
@@ -49,6 +52,24 @@ Solution
 629157834
 785342196
 Difficulty: 0
+```
+
+### Generating
+
+To generate a new sudoku, run `sudoku generate` and it will generate a new
+sudoku.
+
+```
+$ sudoku generate
+2..7.9.4.
+.8...4.67
+.4.2.....
+7....54..
+.5....9.6
+...9.35.8
+8.5..7..1
+...318...
+.7...28..
 ```
 
 ## Development
