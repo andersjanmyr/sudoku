@@ -4,18 +4,30 @@ Sudoku = require '../lib/sudoku'
 
 describe 'Sudoku', ->
   easy = null
+  blank = null
   before ->
-      easy = """
-        51.....83
-        8..416..5
-        .........
-        .985.461.
-        ...9.1...
-        .642.357.
-        .........
-        6..157..4
-        78.....96
-        """
+    blank = """
+      .........
+      .........
+      .........
+      .........
+      .........
+      .........
+      .........
+      .........
+      .........
+      """
+    easy = """
+      51.....83
+      8..416..5
+      .........
+      .985.461.
+      ...9.1...
+      .642.357.
+      .........
+      6..157..4
+      78.....96
+      """
 
   describe 'load', ->
     it 'loads the named board from file', (done) ->
@@ -32,16 +44,10 @@ describe 'Sudoku', ->
       matrix = Sudoku.calcPossibilites(board, Sudoku.Board.allCoords())
       expect(matrix[1]).to.have.length 8
 
-    it 'placeSingles places single values on the board', ->
+    it 'priorityList returns an array of coordinates', ->
       matrix = Sudoku.calcPossibilites(board, Sudoku.Board.allCoords())
-      before = board.toString()
-      Sudoku.placeSingles(board, matrix[1])
-      expect(board.toString()).to.not.equal(before)
-
-    it 'nonSingles returns an array of coordinates', ->
-      matrix = Sudoku.calcPossibilites(board, Sudoku.Board.allCoords())
-      nonSingles = Sudoku.nonSingles(matrix)
-      expect(nonSingles).to.have.length 32
+      priorityList = Sudoku.priorityList(matrix)
+      expect(priorityList).to.have.length 49
 
     it 'solve solves the sudoku or fails', ->
       solution = Sudoku.solve(board)
@@ -93,8 +99,22 @@ describe 'Sudoku', ->
         solution = Sudoku.solve(board)
         expect(solution).to.not.be.null
 
+  describe 'solve impossible', ->
+    board = null
+    before (done) ->
+      Sudoku.load "#{__dirname}/fixtures/impossible.sudoku", (err, b) ->
+        board = b
+        done()
 
+    it 'works', () ->
+        solution = Sudoku.solve(board)
+        console.log solution.difficulty
+        expect(solution).to.not.be.null
 
+  describe 'solve blank', ->
+    it 'works', () ->
+      solution = Sudoku.solve(new Sudoku.Board.fromString(blank))
+      expect(solution).to.not.be.null
 
   describe 'Board', ->
     describe 'rowCoords', ->
@@ -143,4 +163,8 @@ describe 'Sudoku', ->
         expect(copy.coords).to.have.length 9
         expect(copy.coords[8]).to.have.length 9
 
-
+      it 'return an independent copy', ->
+        copy = board.copy()
+        board.value(5, 5, '5')
+        expect(board.value(5, 5)).to.equal '5'
+        expect(copy.value(5, 5)).to.equal '.'

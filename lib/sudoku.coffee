@@ -89,13 +89,7 @@ Sudoku = {
         matrix[v.length] = arr
     matrix
 
-  placeSingles: (board, singles) ->
-    singles.forEach (coord) ->
-      [r, c, values] = coord
-      board.value(r, c, values[0])
-
-  nonSingles: (matrix) ->
-    delete matrix[1]
+  priorityList: (matrix) ->
     values = for _, value of matrix
       value
     [].concat values...
@@ -105,26 +99,33 @@ Sudoku = {
 
   solve: (board) ->
     @difficulty = 0
-    @solve2 board, Sudoku.Board.allCoords()
+    results = @solveMany board, 99
+    results[0]
 
+  solveMany: (board, maxAmount) ->
+    difficulty = 0
+    results = []
+    count = 0
 
-  solve2: (board, coords) ->
-    return { board: board, difficulty: @difficulty } if coords.length is 0
-    matrix = Sudoku.calcPossibilites board, coords
-    return null if matrix[0]
-    if @hasSingles(matrix)
-      @placeSingles board, matrix[1]
-      return @solve2 board, @nonSingles(matrix)
-    else
-      @difficulty++
-      nonSingles = @nonSingles(matrix)
-      first = nonSingles.shift()
+    solveRecur = (board, coords, difficulty=0) =>
+      if coords.length is 0
+        count++
+        results.push({ board: board, difficulty: difficulty })
+        return
+      matrix = Sudoku.calcPossibilites board, coords
+      return if matrix[0]
+      difficulty++ unless @hasSingles(matrix)
+      priorityList = @priorityList(matrix)
+      first = priorityList.shift()
       [r, c, values] = first
       for v in values
         boardCopy = board.copy()
         boardCopy.value(r, c, v)
-        solution = @solve2 boardCopy, nonSingles
-        return solution if solution
+        solveRecur boardCopy, priorityList, difficulty
+        return if count is maxAmount
+
+    solveRecur(board, Sudoku.Board.allCoords())
+    results
 }
 
 module.exports = Sudoku
