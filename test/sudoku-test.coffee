@@ -109,11 +109,42 @@ describe 'Sudoku', ->
 
     it 'works', () ->
         solution = Sudoku.solve(board)
-        console.log solution.difficulty
         expect(solution).to.not.be.null
 
   describe 'solve blank', ->
     it 'works', () ->
       solution = Sudoku.solve(Board.fromString(blank))
       expect(solution).to.not.be.null
+
+  describe 'randomValue', ->
+    it 'returns a values between 1 and 9', ->
+      value = Sudoku.randomValue()
+      expect(value).to.be.at.least(1)
+      expect(value).to.be.at.most(9)
+
+  describe 'isSolved', ->
+    it 'returns true for a solved board', ->
+      solution = Sudoku.solve(Board.fromString(easy))
+      expect(Sudoku.isSolved(solution.board)).to.be.true
+    it 'returns false for an unsolved board', ->
+      expect(Sudoku.isSolved(Board.fromString(easy))).to.be.false
+
+  describe 'generateRandomBoard', ->
+    it 'returns a random solved board', ->
+      board = Sudoku.generateRandomBoard()
+      expect(Sudoku.isSolved(board)).to.be.true
+
+  describe 'hasUniqueSolution', ->
+    it 'returns true for a board with a unique solution', ->
+      unique = Sudoku.hasUniqueSolution(Board.fromString(easy))
+      expect(unique).to.be.true
+    it 'returns false for a board with a unique solution', ->
+      unique = Sudoku.hasUniqueSolution(Board.fromString(blank))
+      expect(unique).to.be.false
+
+  describe 'generate', ->
+    it 'generates a new board', ->
+      board = Sudoku.generate()
+      console.log board
+      expect(Sudoku.isSolved(board)).to.be.false
 

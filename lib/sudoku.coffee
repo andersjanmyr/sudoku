@@ -3,8 +3,21 @@
 fs = require 'fs'
 Board = require './board'
 
+blank =  """
+  .........
+  .........
+  .........
+  .........
+  .........
+  .........
+  .........
+  .........
+  .........
+  """
 
-Sudoku = {
+blankBoard = Board.fromString blank
+
+Sudoku =
   load: (filename, callback) ->
     fs.readFile filename, (err, data) ->
       return callback err if err
@@ -44,7 +57,7 @@ Sudoku = {
         count++
         results.push({ board: board, difficulty: difficulty })
         return
-      matrix = Sudoku.calcPossibilites board, coords
+      matrix = @calcPossibilites board, coords
       return if matrix[0]
       difficulty++ unless @hasSingles(matrix)
       priorityList = @priorityList(matrix)
@@ -58,7 +71,35 @@ Sudoku = {
 
     solveRecur(board, Board.allCoords())
     results
-}
+
+  isSolved: (board) ->
+    matrix = @calcPossibilites board, Board.allCoords()
+    priorityList = @priorityList(matrix)
+    priorityList.length is 0
+
+  randomValue: ->
+    parseInt(Math.random() * 9) + 1
+
+  generateRandomBoard: ->
+    board = blankBoard.copy()
+    board.value(@randomValue(), @randomValue(), '' + @randomValue())
+    solution = Sudoku.solve(board)
+    solution.board
+
+  hasUniqueSolution: (board) ->
+    results = @solveMany(board, 2)
+    results.length is 1
+
+  removeRandom: (board) ->
+    board.value(@randomValue(), @randomValue(), '.')
+
+  generate: (constraints) ->
+    board = @generateRandomBoard()
+    @removeRandom(board)
+    while @hasUniqueSolution(board)
+      oldBoard = board.copy()
+      @removeRandom(board)
+    oldBoard
 
 module.exports = Sudoku
 
