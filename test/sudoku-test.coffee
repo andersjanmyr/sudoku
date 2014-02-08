@@ -142,9 +142,20 @@ describe 'Sudoku', ->
       unique = Sudoku.hasUniqueSolution(Board.fromString(blank))
       expect(unique).to.be.false
 
+  describe 'shuffledCoordinates', ->
+    it 'returns a shuffled list of  coordinates', ->
+      coords = Sudoku.shuffledCoordinates()
+      expect(coords).to.have.length 81
+
   describe 'generate', ->
     it 'generates a new board', ->
       board = Sudoku.generate()
-      console.log board
       expect(Sudoku.isSolved(board)).to.be.false
+
+    it 'generates a new board with minimum difficulty', ->
+      board = Sudoku.generate({minDifficulty: 3})
+      solution = Sudoku.solve(board)
+
+      expect(solution.difficulty).to.be.at.least(3)
+
 

@@ -90,15 +90,25 @@ Sudoku =
     results = @solveMany(board, 2)
     results.length is 1
 
-  removeRandom: (board) ->
-    board.value(@randomValue(), @randomValue(), '.')
+  shuffledCoordinates: ->
+    coords = Board.allCoords()
+    coords.sort ->
+      0.5 - Math.random()
+    coords
 
   generate: (constraints) ->
-    board = @generateRandomBoard()
-    @removeRandom(board)
-    while @hasUniqueSolution(board)
-      oldBoard = board.copy()
-      @removeRandom(board)
+    difficulty = -1;
+    minDifficulty = (constraints && constraints.minDifficulty) || 0
+    while difficulty < minDifficulty
+      coords = @shuffledCoordinates()
+      board = @generateRandomBoard()
+      for coord in coords
+        oldBoard = board.copy()
+        board.value(coord[0], coord[1], '.')
+        unless @hasUniqueSolution(board)
+          board = oldBoard
+      solution = Sudoku.solve(oldBoard.copy())
+      difficulty = solution.difficulty
     oldBoard
 
 module.exports = Sudoku
