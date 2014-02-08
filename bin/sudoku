@@ -4,13 +4,17 @@ require('coffee-script/register');
 var Sudoku = require('../lib/sudoku');
 
 var args = process.argv.slice(2);
-if (args.length !== 1)
-  return console.error('Usage: sudoku name');
+if (args.length < 1) {
+  var msg = 'Usage: sudoku <filename> or sudoku <gen> [diffculty] [symmetric|shuffled]';
+  return console.error(msg);
+}
 
 var name = args[0];
 
-if (/^gen/.test(name))
-  return console.log(Sudoku.generate().toString());
+if (/^gen/.test(name)) {
+  var options = { difficulty: args[1], strategy: args[2]};
+  return console.log(Sudoku.generate(options).toString());
+}
 
 Sudoku.load(name, function(err, board) {
   if (err) return console.log(err);

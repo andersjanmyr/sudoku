@@ -9,8 +9,13 @@ Sudoku is a program for solving sudoku, written in Coffeescript.
 ```
 $ npm install -g sudoku-coffee
 ```
-## Running
 
+## Usage
+
+```
+$ sudoku
+Usage: sudoku <filename> or sudoku <gen> [diffculty] [symmetric|shuffled]
+```
 
 ### Solving
 

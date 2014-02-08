@@ -90,21 +90,43 @@ Sudoku =
     results = @solveMany(board, 2)
     results.length is 1
 
-  shuffledCoordinates: ->
+  randomCoordinates: ->
     coords = Board.allCoords()
     coords.sort ->
       0.5 - Math.random()
-    coords
+    coords.map (coord) ->
+      [coord]
 
-  generate: (constraints) ->
+  symmetricCoordinates: ->
+    nested = for n in [1..5]
+      for m in [1..5]
+        oppM = 10-m
+        oppN = 10-n
+        [[n, m], [n, oppM], [oppN, m], [oppN, oppM]]
+
+    coords = [].concat nested...
+    coords =
+    coords.sort ->
+      0.5 - Math.random()
+
+  eraseValues: (board, coords) ->
+    for coord in coords
+      board.value(coord[0], coord[1], '.')
+
+  generate: (options={}) ->
     difficulty = -1;
-    minDifficulty = (constraints && constraints.minDifficulty) || 0
+    minDifficulty = options.minDifficulty || 0
+    strategy = if options.strategy is 'random'
+      @randomCoordinates
+    else
+      @symmetricCoordinates
+
     while difficulty < minDifficulty
-      coords = @shuffledCoordinates()
+      coords = strategy()
       board = @generateRandomBoard()
-      for coord in coords
+      for cs in coords
         oldBoard = board.copy()
-        board.value(coord[0], coord[1], '.')
+        @eraseValues(board, cs)
         unless @hasUniqueSolution(board)
           board = oldBoard
       solution = Sudoku.solve(oldBoard.copy())

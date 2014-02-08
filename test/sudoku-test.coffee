@@ -142,20 +142,32 @@ describe 'Sudoku', ->
       unique = Sudoku.hasUniqueSolution(Board.fromString(blank))
       expect(unique).to.be.false
 
-  describe 'shuffledCoordinates', ->
-    it 'returns a shuffled list of  coordinates', ->
-      coords = Sudoku.shuffledCoordinates()
+  describe 'randomCoordinates', ->
+    it 'returns a random list of coordinates', ->
+      coords = Sudoku.randomCoordinates()
       expect(coords).to.have.length 81
+
+  describe 'symmetricCoordinates', ->
+    it 'returns a symmetric list of coordinates', ->
+      coords = Sudoku.symmetricCoordinates()
+      expect(coords).to.have.length 25
 
   describe 'generate', ->
     it 'generates a new board', ->
       board = Sudoku.generate()
       expect(Sudoku.isSolved(board)).to.be.false
+      expect(Sudoku.hasUniqueSolution(board)).to.be.true
 
     it 'generates a new board with minimum difficulty', ->
       board = Sudoku.generate({minDifficulty: 3})
+      expect(Sudoku.isSolved(board)).to.be.false
+      expect(Sudoku.hasUniqueSolution(board)).to.be.true
       solution = Sudoku.solve(board)
 
       expect(solution.difficulty).to.be.at.least(3)
 
+    it 'generates a new board with random strategy', ->
+      board = Sudoku.generate({strategy: 'random'})
+      expect(Sudoku.isSolved(board)).to.be.false
+      expect(Sudoku.hasUniqueSolution(board)).to.be.true
 
