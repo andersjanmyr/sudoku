@@ -14,7 +14,7 @@ $ npm install -g sudoku-coffee
 
 ```
 $ sudoku
-Usage: sudoku <filename> or sudoku <gen> [diffculty] [symmetric|shuffled]
+Usage: sudoku <filename> or sudoku <gen> [difficulty] [symmetric|shuffled]
 ```
 
 ### Solving
