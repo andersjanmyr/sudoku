@@ -4,7 +4,9 @@
   "description": "A Coffeescript Sukoku program",
   "repository": "git@github.com:andersjanmyr/sudoku.git",
   "main": "lib/sudoku.js",
-  "bin": { "sudoku": "./bin/sudoku" },
+  "bin": {
+    "sudoku": "./bin/sudoku"
+  },
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script/register --reporter spec test",
     "watch": "mocha --compilers coffee:coffee-script/register --watch --growl test",
