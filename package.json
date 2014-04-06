@@ -3,6 +3,9 @@
   "version": "1.2.0",
   "description": "A Coffeescript Sukoku program",
   "repository": "git@github.com:andersjanmyr/sudoku.git",
+  "engines": {
+    "node": "0.10.x"
+  },
   "main": "lib/sudoku.js",
   "bin": {
     "sudoku": "./bin/sudoku"
