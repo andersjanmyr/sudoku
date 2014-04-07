@@ -6,7 +6,7 @@ app = express()
 app.get '/status', (req, res) ->
   res.send 'Server is running'
 
-app.use '/', routes
+app.use '/sudoku', routes
 
 module.exports = app
 
